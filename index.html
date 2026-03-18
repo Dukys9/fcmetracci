@@ -1151,6 +1151,154 @@ footer{background:var(--bg);border-top:3px solid var(--gold)}
     padding-top: 1rem;
   }
 }
+.player-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    will-change: opacity, transform;
+}
+
+.player-card.appear {
+    opacity: 1;
+    transform: translateY(0);
+}
+.history-content {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.9);
+}
+
+.history-highlight {
+    color: #f5c518;
+    font-weight: bold;
+    border-left: 3px solid #f5c518;
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+}
+
+.metro-line {
+    height: 4px;
+    background: linear-gradient(90deg, #00a651 33%, #ff0000 33%, #ff0000 66%, #0072bc 66%);
+    margin-bottom: 2rem;
+    border-radius: 2px;
+}
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, #00a651, #ff0000, #0072bc);
+    border-radius: 2px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+    padding-left: 50px;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 12px;
+    top: 5px;
+    width: 20px;
+    height: 20px;
+    background: #f5c518;
+    border: 4px solid #1a1a1a;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.timeline-year {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.4rem;
+    color: #f5c518;
+    margin-bottom: 0.2rem;
+    display: block;
+}
+
+.timeline-text {
+    color: rgba(255,255,255,0.9);
+    line-height: 1.5;
+}
+/* --- ČASOVÁ OSA HISTORIE --- */
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  /* Linka: Zelená (A), Žlutá (B), Červená (C) */
+  background: linear-gradient(to bottom, 
+    #00a651 0%, #00a651 33%, 
+    #f5c518 33%, #f5c518 66%, 
+    #ff0000 66%, #ff0000 100%
+  );
+  border-radius: 2px;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 2.5rem;
+  padding-left: 50px;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: 12px;
+  top: 5px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border: 4px solid #1a1a1a;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.timeline-year {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.4rem;
+  color: #f5c518;
+  margin-bottom: 0.2rem;
+  display: block;
+}
+
+.timeline-text {
+  color: rgba(255,255,255,0.9);
+  line-height: 1.5;
+}
+
+/* Styl pro naskakování hráčů */
+.pcard {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+.pcard.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 </style>
 <link rel="alternate" hreflang="cs" href="https://metracci.cz/">
 <link rel="alternate" hreflang="x-default" href="https://metracci.cz/">
@@ -2110,6 +2258,26 @@ footer{background:var(--bg);border-top:3px solid var(--gold)}
     <td><span class="hbadge">Home</span></td>
     <td class="result-cell" data-kolo="11" data-ha="home"></td>
   </tr>
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const cards = document.querySelectorAll('.pcard');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        cards.forEach((card, index) => {
+          setTimeout(() => {
+            card.classList.add('is-visible');
+          }, index * 100);
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  const target = document.querySelector('.roster') || document.querySelector('#soupiska');
+  if (target) observer.observe(target);
+});
+</script>
 </tbody>
       </table>
     </div>
@@ -2490,65 +2658,38 @@ footer{background:var(--bg);border-top:3px solid var(--gold)}
 </section>
 
 <!-- ═══ HISTORIE ═══ -->
-<section id="historie" class="section" style="background:var(--bg2)">
-  <div class="s-inner">
-    <div class="s-label fi">O nás</div>
-    <h2 class="s-h2 fi d1">HISTORIE <em>KLUBU</em></h2>
+<section id="historie" class="section">
+    <div class="s-inner">
+        <div class="s-label fi">Historie</div>
+        <h2 class="s-h2 fi d1">CESTA <em>Z PODZEMÍ</em></h2>
 
-    <div class="fi d2" style="max-width:720px;margin-bottom:3rem;line-height:1.8;color:var(--text2)">
-      <p>FC Metráčci vznikli v roce 2012 jako parta kamarádů z Prahy, kteří chtěli hrát fotbal pro radost. 
-      Co začalo jako neformální kickání na hřišti, se brzy proměnilo v pravidelné tréninky a první přihlášení 
-      do Hanspaulské ligy.</p>
-      <p style="margin-top:1rem">Za roky existence klub prošel mnoha proměnami — přicházeli noví hráči, 
-      měnily se soupisy, ale jedno zůstalo stejné: parta lidí, kteří to dělají s láskou k fotbalu.</p>
+        <div class="timeline fi d2">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <span class="timeline-year">2021 — Stanice Depo</span>
+                <p class="timeline-text">Parta strojvedoucích pražského metra mění uniformy za dresy. Zakládáme FC Metráčky. První výkopy probíhají hned po ranních směnách.</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <span class="timeline-year">2023 — Rozjezd</span>
+                <p class="timeline-text">Stabilizujeme kádr a budujeme jméno v Hanspaulské lize. Už nejsme jen "ti kluci od metra", ale respektovaný soupeř s pevnou obranou.</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <span class="timeline-year">2025 — Plná rychlost</span>
+                <p class="timeline-text">Tým doplňujeme o nové tváře, které sdílejí naši vášeň. Modernizujeme web a vizuální identitu. Držíme kurz v 6. lize.</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <span class="timeline-year">2026 — Cílová stanice: Postup</span>
+                <p class="timeline-text">V sezóně Jaro 2026 máme jediný cíl: hrát atraktivní fotbal pro radost a posunout se v tabulce Hanspaulky zase o kousek výš.</p>
+            </div>
+        </div>
     </div>
-
-    <div class="fi d3" style="display:flex;flex-direction:column;gap:0;max-width:680px">
-
-      <div class="timeline-item" style="display:flex;gap:2rem;align-items:flex-start;padding:1.5rem 0;border-bottom:1px solid rgba(255,255,255,.07);opacity:0">
-  <div style="min-width:80px;font-size:1.4rem;font-weight:800;color:var(--gold);letter-spacing:.05em">2021</div>
-  <div>
-    <div style="font-weight:700;color:var(--text1);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.08em;font-size:.85rem">Založení klubu</div>
-    <div style="color:var(--text2);font-size:.9rem;line-height:1.7">Parta přátel zakládá FC Metráčci. První tréninky na Hanspaulce, žádný dres, jen chuť hrát.</div>
-  </div>
-</div>
-
-      <div class="timeline-item" style="display:flex;gap:2rem;align-items:flex-start;padding:1.5rem 0;border-bottom:1px solid rgba(255,255,255,.07)">
-        <div style="min-width:80px;font-size:1.4rem;font-weight:800;color:var(--gold);letter-spacing:.05em">2014</div>
-        <div>
-          <div style="font-weight:700;color:var(--text1);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.08em;font-size:.85rem">První sezóna v lize</div>
-          <div style="color:var(--text2);font-size:.9rem;line-height:1.7">Historicky první zápis do Hanspaulské ligy. Porážky, výhry, ale hlavně — zábava a nové zkušenosti.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item" style="display:flex;gap:2rem;align-items:flex-start;padding:1.5rem 0;border-bottom:1px solid rgba(255,255,255,.07)">
-        <div style="min-width:80px;font-size:1.4rem;font-weight:800;color:var(--gold);letter-spacing:.05em">2018</div>
-        <div>
-          <div style="font-weight:700;color:var(--text1);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.08em;font-size:.85rem">Nové dresy</div>
-          <div style="color:var(--text2);font-size:.9rem;line-height:1.7">Klub dostává profesionálnější tvář — nové dresy v černo-zlatých barvách, které nosíme dodnes.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item" style="display:flex;gap:2rem;align-items:flex-start;padding:1.5rem 0;border-bottom:1px solid rgba(255,255,255,.07)">
-        <div style="min-width:80px;font-size:1.4rem;font-weight:800;color:var(--gold);letter-spacing:.05em">2022</div>
-        <div>
-          <div style="font-weight:700;color:var(--text1);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.08em;font-size:.85rem">Postup do vyšší třídy</div>
-          <div style="color:var(--text2);font-size:.9rem;line-height:1.7">Po sérii dobrých výsledků se Metráčci probojovávají do vyšší soutěžní třídy. Největší úspěch dosud.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item" style="display:flex;gap:2rem;align-items:flex-start;padding:1.5rem 0">
-        <div style="min-width:80px;font-size:1.4rem;font-weight:800;color:var(--gold);letter-spacing:.05em">2026</div>
-        <div>
-          <div style="font-weight:700;color:var(--text1);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.08em;font-size:.85rem">Dnes</div>
-          <div style="color:var(--text2);font-size:.9rem;line-height:1.7">Nová sezóna, nové cíle. FC Metráčci jsou stále tady — a pořád jedou naplno.</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
 </section>
-
 <div class="divider"></div>
 
 <!-- ═══ FOOTER ═══ -->
