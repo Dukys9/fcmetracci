@@ -2831,56 +2831,39 @@ if (rosterSection) rosterObs.observe(rosterSection);
 // 2. Funkce pro přepínání (Fotka -> Video 1 -> Video 2 -> Fotka)
 let currentMediaState = 'photo'; 
 
+let currM = 0;
 function toggleHeroMedia() {
-  const photo = document.getElementById('hero-photo');
-  const v1Div = document.getElementById('hero-video');
-  const v1El = document.getElementById('hero-vid-el');
-  const v2Div = document.getElementById('hero-video2');
-  const v2El = document.getElementById('hero-vid-el2');
-  const arrow = document.getElementById('hero-arrow');
+  const p = document.getElementById('hero-photo'),
+        v1 = document.getElementById('hero-video'),
+        v1E = document.getElementById('hero-vid-el'),
+        v2 = document.getElementById('hero-video2'),
+        v2E = document.getElementById('hero-vid-el2'),
+        a = document.getElementById('hero-arrow');
 
-  const hideAll = () => {
-    [photo, v1Div, v2Div].forEach(el => {
-      if (el) {
-        el.style.opacity = '0';
-        el.style.zIndex = '1';
-        el.style.pointerEvents = 'none';
-      }
-    });
-    if (v1El) v1El.pause();
-    if (v2El) v2El.pause();
+  const s = (el, op, z, pe) => { 
+    if(el) { el.style.opacity = op; el.style.zIndex = z; el.style.pointerEvents = pe; }
   };
 
-  if (currentMediaState === 'photo') {
-    hideAll();
-    v1Div.style.opacity = '1';
-    v1Div.style.zIndex = '2';
-    v1Div.style.pointerEvents = 'auto';
-    v1El.play();
-    if (arrow) arrow.classList.add('active');
-    currentMediaState = 'video1';
-  } 
-  else if (currentMediaState === 'video1') {
-    const source2 = v2El.querySelector('source');
-    if (source2 && source2.dataset.src) {
-      source2.src = source2.dataset.src;
-      source2.removeAttribute('data-src');
-      v2El.load();
+  if (currM === 0) {
+    s(p, '0', '1', 'none'); s(v1, '1', '2', 'auto');
+    v1E.play();
+    if (a) a.classList.add('active');
+    currM = 1;
+  } else if (currM === 1) {
+    const src2 = v2E.querySelector('source');
+    if (src2 && src2.dataset.src) {
+      src2.src = src2.dataset.src;
+      src2.removeAttribute('data-src');
+      v2E.load();
     }
-    hideAll();
-    v2Div.style.opacity = '1';
-    v2Div.style.zIndex = '2';
-    v2Div.style.pointerEvents = 'auto';
-    v2El.play();
-    currentMediaState = 'video2';
-  } 
-  else {
-    hideAll();
-    photo.style.opacity = '1';
-    photo.style.zIndex = '2';
-    photo.style.pointerEvents = 'auto';
-    if (arrow) arrow.classList.remove('active');
-    currentMediaState = 'photo';
+    s(v1, '0', '1', 'none'); s(v2, '1', '2', 'auto');
+    v1E.pause(); v2E.play();
+    currM = 2;
+  } else {
+    s(v2, '0', '1', 'none'); s(p, '1', '2', 'auto');
+    v2E.pause();
+    if (a) a.classList.remove('active');
+    currM = 0;
   }
 }
 </script>
