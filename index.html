@@ -993,7 +993,7 @@ footer{background:var(--bg);border-top:3px solid var(--gold)}
 }
 
 .timeline::before {
-  left: 10px;
+  left: 14px;
 }
 
 .timeline-item {
@@ -1001,14 +1001,6 @@ footer{background:var(--bg);border-top:3px solid var(--gold)}
   padding-top: 1.1rem !important;
   padding-bottom: 1.1rem !important;
   margin-bottom: 2rem;
-}
-
-.timeline-dot {
-  left: 4px;
-  top: 4px;
-  width: 16px;
-  height: 16px;
-  border-width: 3px;
 }
 
 .timeline-year {
@@ -1206,7 +1198,7 @@ footer{background:var(--bg);border-top:3px solid var(--gold)}
 .timeline::before {
   content: '';
   position: absolute;
-  left: 20px;
+  left: 14px;
   top: 0;
   bottom: 0;
   width: 5px;
@@ -1227,14 +1219,15 @@ footer{background:var(--bg);border-top:3px solid var(--gold)}
 
 .timeline-dot {
   position: absolute;
-  left: 10px;
-  top: 5px;
-  width: 20px;
-  height: 20px;
+  left: 16px;
+  top: 8px;
+  width: 16px;
+  height: 16px;
   background: #fff;
-  border: 4px solid #1a1a1a;
+  border: 3px solid #1a1a1a;
   border-radius: 50%;
   z-index: 2;
+  transform: translateX(-50%);
 }
 
 .timeline-year {
@@ -1261,6 +1254,11 @@ footer{background:var(--bg);border-top:3px solid var(--gold)}
   opacity: 1;
   transform: translateY(0);
 }
+@keyframes pulse-arrow {
+  0%, 100% { transform: translateY(-50%) scale(1); opacity: 1; }
+  50% { transform: translateY(-50%) scale(1.12); opacity: 0.7; }
+}
+.hero-arrow { animation: pulse-arrow 2s ease-in-out infinite; }
 </style>
 <link rel="alternate" hreflang="cs" href="https://metracci.cz/">
 <link rel="alternate" hreflang="x-default" href="https://metracci.cz/">
@@ -1480,7 +1478,7 @@ footer{background:var(--bg);border-top:3px solid var(--gold)}
         <div class="fi d1">
           <div class="col-label">Výsledky Metráčků — Jaro 2026</div>
 
-<div class="rc"><div class="rc-top"><div class="rc-teams" style="color:var(--text2)">Horoušany FC — Metráčci</div><div class="rc-score" style="color:var(--text2)">0:9</div></div><div class="rc-meta" style="color:var(--text2)">17. 3. 2026 · SCBEC · Kolo 1</div></div>
+<div class="rc w"><div class="rc-top"><div class="rc-teams">Horoušany FC — Metráčci</div><div class="rc-score" style="color:var(--green)">0:9</div></div><div class="rc-meta">17. 3. 2026 · SCBEC · Kolo 1</div></div>
 
 <div class="rc"><div class="rc-top"><div class="rc-teams" style="color:var(--text2)">Metráčci — Prtzalona C.F.</div><div class="rc-score" style="color:var(--text2)">0:0</div></div><div class="rc-meta" style="color:var(--text2)">25. 3. 2026 · MOTO1 · Kolo 2</div></div>
 
@@ -2140,7 +2138,7 @@ footer{background:var(--bg);border-top:3px solid var(--gold)}
     <span class="result-score result-win">0:9</span>
   </td>
 </tr>
-  <tr>
+  <tr class="next">
     <td><span class="kolo">2. kolo</span></td>
     <td class="match-date">St 25. 3. 2026 · 20:30</td>
     <td class="match-teams">Metráčci — Prtzalona C.F.</td>
@@ -2220,26 +2218,6 @@ footer{background:var(--bg);border-top:3px solid var(--gold)}
     <td><span class="hbadge">Home</span></td>
     <td class="result-cell" data-kolo="11" data-ha="home"></td>
   </tr>
-  <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const cards = document.querySelectorAll('.pcard');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        cards.forEach((card, index) => {
-          setTimeout(() => {
-            card.classList.add('is-visible');
-          }, index * 100);
-        });
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  const target = document.querySelector('.roster') || document.querySelector('#soupiska');
-  if (target) observer.observe(target);
-});
-</script>
 </tbody>
       </table>
     </div>
@@ -2257,7 +2235,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <img src="dres.png" alt="Fotbalový dres týmu FC Metráčci" width="100" height="120" style="height:120px;width:auto;opacity:0.85;filter:drop-shadow(0 0 10px rgba(245,197,24,0.3))" loading="lazy">
     </div>
 
-    <div class="roster fi d2">
+    <div class="roster">
       <div class="pcard"><div class="pphoto"><div class="pphoto-bg"></div><div class="pnum-bg">1</div><img src="Robin Zimmerling.webp" alt="Robin Zimmerling" width="300" height="300" style="position:relative;z-index:2;width:100%;height:100%;object-fit:cover;object-position:center 15%;" loading="lazy"></div><div class="pinfo"><div class="pn">#1</div><div class="pname">Robin Zimmerling</div><div class="ppos">Brankář</div></div></div>
 
       <div class="pcard"><div class="pphoto"><div class="pphoto-bg"></div><div class="pnum-bg">2</div><img src="Ondřej Křižka.webp" alt="Ondřej Křížka" width="300" height="300" style="position:relative;z-index:2;width:100%;height:100%;object-fit:cover;object-position:center 15%;" loading="lazy"></div><div class="pinfo"><div class="pn">#2</div><div class="pname">Ondřej Křižka</div><div class="ppos">Obránce</div></div></div>
@@ -2621,36 +2599,122 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <!-- ═══ HISTORIE ═══ -->
 <section id="historie" class="section">
-    <div class="s-inner">
-        <div class="s-label fi">Historie</div>
-        <h2 class="s-h2 fi d1">CESTA <em>Z PODZEMÍ</em></h2>
+  <div class="s-inner">
+    <div class="s-label fi">Historie</div>
+    <h2 class="s-h2 fi d1">CESTA <em>Z PODZEMÍ</em></h2>
 
-        <div class="timeline fi d2">
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <span class="timeline-year">2021 — Stanice Depo</span>
-                <p class="timeline-text">Parta strojvedoucích pražského metra mění uniformy za dresy. Zakládáme FC Metráčky. První výkopy probíhají hned po ranních směnách.</p>
-            </div>
+    <style>
+.mtl{position:relative;max-width:800px;margin:2rem auto;padding:0 0 2rem 0}
+.mtl-track{position:absolute;left:16px;top:0;bottom:0;width:5px;background:var(--border);border-radius:3px;overflow:hidden;z-index:0}
+.mtl-item{position:relative;z-index:1;padding:0 0 2.5rem 58px;opacity:0;transform:translateX(-16px);transition:opacity .5s ease,transform .5s ease}
+.mtl-item.show{opacity:1;transform:none}
+.mtl-dot{position:absolute;left:9px;top:5px;width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--border);z-index:2;opacity:0;transition:opacity .3s ease,border-color .3s}
+.mtl-item.show .mtl-dot{opacity:1;border-color:#fff}
+.mtl-year{font-family:'Oswald',sans-serif;font-size:.95rem;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.mtl-text{font-family:'Barlow Condensed',sans-serif;font-size:1rem;color:var(--w60);line-height:1.65}
+</style>
 
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <span class="timeline-year">2023 — Rozjezd</span>
-                <p class="timeline-text">Stabilizujeme kádr a budujeme jméno v Hanspaulské lize. Už nejsme jen "ti kluci od metra", ale respektovaný soupeř s pevnou obranou.</p>
-            </div>
+    <div class="mtl fi d2" id="mtl">
+      <div class="mtl-track">
+        <div id="mtl-train" style="position:absolute;top:0;left:0;width:5px;height:0;z-index:1;"></div>
+      </div>
 
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <span class="timeline-year">2025 — Plná rychlost</span>
-                <p class="timeline-text">Tým doplňujeme o nové tváře, které sdílejí naši vášeň. Modernizujeme web a vizuální identitu. Držíme kurz v 6. lize.</p>
-            </div>
+      <div class="mtl-item">
+        <div class="mtl-dot"></div>
+        <div class="mtl-year">2021 — Stanice Depo</div>
+        <p class="mtl-text">Parta strojvedoucích pražského metra mění uniformy za dresy. Zakládáme FC Metráčky. První výkopy probíhají hned po ranních směnách.</p>
+      </div>
 
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <span class="timeline-year">2026 — Cílová stanice: Postup</span>
-                <p class="timeline-text">V sezóně Jaro 2026 máme jediný cíl: hrát atraktivní fotbal pro radost a posunout se v tabulce Hanspaulky zase o kousek výš.</p>
-            </div>
-        </div>
+      <div class="mtl-item">
+        <div class="mtl-dot"></div>
+        <div class="mtl-year">2023 — Rozjezd</div>
+        <p class="mtl-text">Stabilizujeme kádr a budujeme jméno v Hanspaulské lize. Už nejsme jen "ti kluci od metra", ale respektovaný soupeř s pevnou obranou.</p>
+      </div>
+
+      <div class="mtl-item">
+        <div class="mtl-dot"></div>
+        <div class="mtl-year">2025 — Plná rychlost</div>
+        <p class="mtl-text">Tým doplňujeme o nové tváře, které sdílejí naši vášeň. Modernizujeme web a vizuální identitu. Držíme kurz v 6. lize.</p>
+      </div>
+
+      <div class="mtl-item">
+        <div class="mtl-dot"></div>
+        <div class="mtl-year">2026 — Cílová stanice: Postup</div>
+        <p class="mtl-text">V sezóně Jaro 2026 máme jediný cíl: hrát atraktivní fotbal pro radost a posunout se v tabulce Hanspaulky zase o kousek výš.</p>
+      </div>
     </div>
+
+    <script>
+(function(){
+  const mtl = document.getElementById('mtl');
+  const items = mtl.querySelectorAll('.mtl-item');
+  const train = document.getElementById('mtl-train');
+  const track = train.parentElement;
+  let started = false;
+
+  function start() {
+    if (started) return;
+    started = true;
+
+    const thresholds = Array.from(items).map(item => {
+      const dot = item.querySelector('.mtl-dot');
+      return item.offsetTop + dot.offsetTop + dot.offsetHeight / 2;
+    });
+
+    const firstDot = thresholds[0];
+    const totalH = thresholds[thresholds.length - 1];
+    track.style.top = firstDot + 'px';
+    track.style.bottom = 'auto';
+    track.style.height = (totalH - firstDot) + 'px';
+    train.style.top = '0px';
+    train.style.transition = 'none';
+    train.style.height = '0px';
+
+    const t1 = thresholds[1] - firstDot;
+    const t2 = thresholds[2] - firstDot;
+    const tH = totalH - firstDot;
+    train.style.background = `linear-gradient(to bottom, #00a651 0px, #00a651 ${t1}px, #f5c518 ${t1}px, #f5c518 ${t2}px, #e63946 ${t2}px, #e63946 ${tH}px)`;
+    const revealed = new Array(items.length).fill(false);
+    const duration = 1400;
+    let startTime = null;
+
+    function frame(ts) {
+      if (!startTime) startTime = ts;
+      const elapsed = ts - startTime;
+      const current = Math.min((elapsed / duration) * totalH, totalH);
+      train.style.height = current + 'px';
+
+      thresholds.forEach((thresh, i) => {
+        if (!revealed[i] && current >= thresh) {
+          revealed[i] = true;
+          items[i].classList.add('show');
+        }
+      });
+
+      if (elapsed < duration) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  const obs = new IntersectionObserver(es => {
+    if (es[0].isIntersecting) { start(); obs.disconnect(); }
+  }, { threshold: 0.15 });
+  obs.observe(mtl);
+
+  // Reset animace při kliknutí na odkaz Historie
+  document.querySelectorAll('a[href="#historie"]').forEach(a => {
+    a.addEventListener('click', () => {
+      started = false;
+      train.style.height = '0px';
+      items.forEach(item => {
+        item.classList.remove('show');
+      });
+      setTimeout(() => start(), 800);
+    });
+  });
+})();
+</script>
+  </div>
 </section>
 <div class="divider"></div>
 
@@ -2772,7 +2836,7 @@ window.toggleHeroMedia = function () {
     video1.style.opacity = '1';
     video1.style.pointerEvents = 'auto';
     vid1.play();
-    arrow.setAttribute('points', '15 18 9 12 15 6');
+    arrow.setAttribute('points', '9 18 15 12 9 6');
 
   } else {
     const src2 = vid2.querySelector('source');
@@ -2907,9 +2971,7 @@ function switchSeason(id) {
   }, 100);
 }
 
-document.querySelector('a[href="#historie"]').addEventListener('click', () => {
-  setTimeout(animateTimeline, 400);
-});
+
 document.querySelector('a[href="#soupiska"]').addEventListener('click', () => {
   setTimeout(() => {
     document.querySelectorAll('.pcard').forEach((card, i) => {
@@ -2924,26 +2986,21 @@ document.querySelector('a[href="#soupiska"]').addEventListener('click', () => {
     });
   }, 400);
 });
-// 1. Aktivace animace soupisky
-let rosterAnimated = false;
+
 const rosterObs = new IntersectionObserver((entries) => {
-  if (entries[0].isIntersecting && !rosterAnimated) {
-    rosterAnimated = true;
-    document.querySelectorAll('.pcard').forEach((card, i) => {
-      setTimeout(() => {
-        card.style.transition = 'opacity .4s ease, transform .4s ease';
-        card.style.opacity = '1';
-        card.style.transform = 'none';
-      }, i * 80);
-    });
-  }
-}, { threshold: 0.1 });
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+      rosterObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.05 });
 
-const rosterSection = document.getElementById('soupiska');
-if (rosterSection) rosterObs.observe(rosterSection);
-
-// 2. Funkce pro přepínání (Fotka -> Video 1 -> Video 2 -> Fotka)
-<script>
+document.querySelectorAll('.pcard').forEach((card, i) => {
+  card.style.transitionDelay = (i * 60) + 'ms';
+  rosterObs.observe(card);
+});
+</script>
 let mediaState = 0; 
 
 function toggleHeroMedia() {
